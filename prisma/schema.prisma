@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model Author {
+  id    String @id @default(uuid())
+  email String @unique
+  name  String
+  posts Post[]
+
+  @@map("authors")
+}
+
+model Comment {
+  id      String @id @default(uuid())
+  content String
+  post_id String
+  post    Post   @relation(fields: [post_id], references: [id])
+
+  @@map("comments")
+}
+
+model Post {
+  id        String    @id @default(uuid())
+  title     String
+  content   String
+  comments  Comment[]
+  author_id String
+  author    Author    @relation(fields: [author_id], references: [id])
+
+  @@map("posts")
+}
