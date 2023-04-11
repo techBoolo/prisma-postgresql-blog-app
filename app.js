@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 
+import postRoute from './routes/post.js'
+
 const app = express()
 
 app.use(cors())
@@ -13,6 +15,8 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'it works!' })
 })
+
+app.use('/posts', postRoute)
 
 app.use((req, res, next) => {
   const error = new Error('Route not found.')
