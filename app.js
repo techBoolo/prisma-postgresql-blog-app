@@ -1,10 +1,13 @@
 import express from 'express'
 import cors from 'cors'
+import 'express-async-errors'
 
 import postRoute from './routes/post.js'
+import authorRoute from './routes/author.js'
 
 const app = express()
 
+app.use(express.json())
 app.use(cors())
 app.use((req, res, next) => {
   const requestTime = new Date().toLocaleString(undefined, { })
@@ -17,12 +20,14 @@ app.get('/', (req, res) => {
 })
 
 app.use('/posts', postRoute)
+app.use('/authors', authorRoute)
 
 app.use((req, res, next) => {
   const error = new Error('Route not found.')
   error.statusCode = 404
   next(error)
 })
+
 app.use((error, req, res, next) => {
   res.statusCode = error.statusCode || 500
   res.json({ 
