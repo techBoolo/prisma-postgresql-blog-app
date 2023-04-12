@@ -40,10 +40,14 @@ const generateJWToken = async (payload) => {
     process.env.JWT_KEY, 
     { expiresIn: '180days' })
 }
+const verifyJWToken = async (token) => {
+  return await jwt.verify(token.authorToken, process.env.JWT_KEY) 
+}
 
 export default {
   checkEmailAndPasswordPolicy,
   checkIfAccountTaken,
   hashPassword,
   generateJWToken,
+  verifyJWToken,
 }
