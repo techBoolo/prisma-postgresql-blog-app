@@ -34,7 +34,23 @@ const verify_token = async (req, res) => {
   res.status(200).json({ name, email })
 }
 
+const signin = async (req, res) => {
+  const { email, password } = req.body
+  helpers.checkIfEmailAndPasswordProvided({ email, password })
+  const author = await helpers.getAccountIfExists({ email })
+  await helpers.comparePassword(password, author.password)
+
+  const jwtPayload = {
+    name: author.name,
+    email: author.email
+  }
+  const token = await helpers.generateJWToken(jwtPayload)
+  
+  res.status(200).send({ token, ...jwtPayload })
+}
+
 export default {
   create,
-  verify_token
+  verify_token,
+  signin,
 }

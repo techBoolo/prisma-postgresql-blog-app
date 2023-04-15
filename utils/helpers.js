@@ -29,9 +29,28 @@ const checkIfAccountTaken = async ({ email }) => {
     throw new ErrorResponse({ statusCode: 409, message: 'Account already taken' })
   }
 }
+const getAccountIfExists = async ({ email }) => {
+  const account = await isAccountExists({ email })
+  if(account) return account
+  throw new ErrorResponse({
+    statusCode: 404,
+    message: 'Account does not exist in the record'
+  })
+}
 
 const hashPassword = async (password) => {
   return await bcrypt.hash(password, +process.env.BcryptSaltRounds) 
+}
+const isPasswordCorrect = async (password, hashedPassword) => {
+  return await bcrypt.compare(password, hashedPassword)
+}
+const comparePassword = async (password, hashedPassword) => {
+  if(!await isPasswordCorrect(password, hashedPassword)) {
+    throw new ErrorResponse({
+      statusCode: 403,
+      message: 'Authentication error, password'
+    })
+  }
 }
 
 const generateJWToken = async (payload) => {
@@ -44,10 +63,22 @@ const verifyJWToken = async (token) => {
   return await jwt.verify(token.authorToken, process.env.JWT_KEY) 
 }
 
+const checkIfEmailAndPasswordProvided = ({ email, password }) => {
+  if(!email || !password) {
+    throw new ErrorResponse({ 
+      statusCode: 400,
+      message: 'Please, Provide the required fields'
+    })
+  }
+}
+
 export default {
   checkEmailAndPasswordPolicy,
   checkIfAccountTaken,
   hashPassword,
+  comparePassword,
   generateJWToken,
   verifyJWToken,
+  checkIfEmailAndPasswordProvided,
+  getAccountIfExists,
 }
