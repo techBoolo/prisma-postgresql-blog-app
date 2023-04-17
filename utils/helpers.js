@@ -71,6 +71,17 @@ const checkIfEmailAndPasswordProvided = ({ email, password }) => {
     })
   }
 }
+const getTokenFromHeader = (req) => {
+  const auth = req.get('Authentication')
+  if(auth && auth.toLowerCase().startsWith('bearer')) {
+    return auth.split(/\s+/)[1]
+  } else {
+    throw new ErrorResponse({
+      statusCode: 401,
+      message: 'Please provide your credential'
+    })
+  }
+}
 
 export default {
   checkEmailAndPasswordPolicy,
@@ -81,4 +92,5 @@ export default {
   verifyJWToken,
   checkIfEmailAndPasswordProvided,
   getAccountIfExists,
+  getTokenFromHeader,
 }
