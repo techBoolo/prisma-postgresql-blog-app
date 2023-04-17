@@ -18,7 +18,7 @@ const create = async (req, res) => {
     password: hashedPassword
   }
   const response = await Author.create(authorInfo)
-  const token = await helpers.generateJWToken(jwtPayload)
+  const token = await helpers.generateJWToken({...jwtPayload, id: response.id })
 
   res.status(201).json({ 
     author: { ...response, token } , 
@@ -41,6 +41,7 @@ const signin = async (req, res) => {
   await helpers.comparePassword(password, author.password)
 
   const jwtPayload = {
+    id: author.id,
     name: author.name,
     email: author.email
   }
