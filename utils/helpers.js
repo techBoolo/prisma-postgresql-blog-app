@@ -61,6 +61,7 @@ const generateJWToken = async (payload) => {
 }
 const verifyJWToken = async (token) => {
   return await jwt.verify(token.authorToken, process.env.JWT_KEY) 
+  // return the payload or throw
 }
 
 const checkIfEmailAndPasswordProvided = ({ email, password }) => {

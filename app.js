@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import 'express-async-errors'
+import ErrorResponse from './utils/errorResponse.js'
 
 import postRoute from './routes/post.js'
 import authorRoute from './routes/author.js'
@@ -23,8 +24,10 @@ app.use('/posts', postRoute)
 app.use('/authors', authorRoute)
 
 app.use((req, res, next) => {
-  const error = new Error('Route not found.')
-  error.statusCode = 404
+  const error = new ErrorResponse({
+    statusCode: 404,
+    message: 'Route not found.'
+  })
   next(error)
 })
 

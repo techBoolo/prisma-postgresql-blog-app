@@ -29,9 +29,9 @@ const create = async (req, res) => {
 const verify_token = async (req, res) => {
   const token = req.body
   const result = await helpers.verifyJWToken(token)
-  const { name, email } = result
+  const { id, name, email } = result
   
-  res.status(200).json({ name, email })
+  res.status(200).json({ id, name, email })
 }
 
 const signin = async (req, res) => {
