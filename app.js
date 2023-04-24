@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import 'express-async-errors'
+import swagger from './middlewares/swagger.js'
 import ErrorResponse from './utils/errorResponse.js'
 
 import postRoute from './routes/post.js'
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 app.use('/posts', postRoute)
 app.use('/authors', authorRoute)
 
+swagger(app)
 app.use((req, res, next) => {
   const error = new ErrorResponse({
     statusCode: 404,

@@ -9,6 +9,7 @@ const server = http.createServer()
 server.on('request', app)
 
 await connectDB()
+
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 })
