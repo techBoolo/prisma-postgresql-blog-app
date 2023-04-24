@@ -55,4 +55,15 @@ router.route('/')
    */
   .post(authenticate, postController.create)
 
+  router.route('/:id')
+    /**
+     * @swagger
+     *  /posts/:id:
+     *    patch:
+     *      description: update a post
+     *
+    */
+    .patch(authenticate, postController.update)
+
+
 export default router

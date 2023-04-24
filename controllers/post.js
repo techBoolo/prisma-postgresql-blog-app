@@ -19,7 +19,16 @@ const create = async (req, res) => {
   res.status(201).json(post)
 }
 
+const update = async (req, res) => {
+  const data = req.body
+  const { id, ...rest } = data
+  const post = await Post.updatePost({ id }, rest)
+  
+  res.status(200).json(post)
+}
+
 export default {
   index,
-  create
+  create,
+  update,
 }
