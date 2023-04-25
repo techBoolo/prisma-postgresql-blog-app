@@ -31,6 +31,23 @@ const createPost = async (postData) => {
   })
 }
 
+const getPost = async (id) => {
+  const db = getDB()
+  return await db.post.findUnique({
+    where: id,
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+          email: true
+        }
+      },
+      comments: true 
+    }
+  })
+}
+
 const updatePost = async (id, postData) => {
   const db = getDB()
   return await db.post.update({
@@ -50,5 +67,6 @@ const updatePost = async (id, postData) => {
 export default {
   getPosts,
   createPost,
+  getPost,
   updatePost,
 }

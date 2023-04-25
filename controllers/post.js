@@ -19,6 +19,13 @@ const create = async (req, res) => {
   res.status(201).json(post)
 }
 
+const show = async (req, res) => {
+  const { id } = req.params
+  const post = await Post.getPost({ id })
+
+  res.status(200).json(post)
+}
+
 const update = async (req, res) => {
   const data = req.body
   const { id, ...rest } = data
@@ -27,8 +34,15 @@ const update = async (req, res) => {
   res.status(200).json(post)
 }
 
+const remove = async (req, res) => {
+
+  res.status(200).json({ message: 'under const' })
+}
+
 export default {
   index,
   create,
+  show,
   update,
+  remove,
 }

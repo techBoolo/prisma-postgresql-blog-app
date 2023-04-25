@@ -59,11 +59,26 @@ router.route('/')
     /**
      * @swagger
      *  /posts/:id:
+     *    get:
+     *      description: get a post
+     *
+    */
+    .get(postController.show)
+    /**
+     * @swagger
+     *  /posts/:id:
      *    patch:
      *      description: update a post
      *
     */
     .patch(authenticate, postController.update)
-
+    /**
+     * @swagger
+     *  /posts/:id:
+     *    delete:
+     *      description: delete a post
+     *
+    */
+    .delete(authenticate, postController.remove)
 
 export default router
