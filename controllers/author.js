@@ -29,9 +29,9 @@ const create = async (req, res) => {
 const verify_token = async (req, res) => {
   const token = req.body
   const result = await helpers.verifyJWToken(token)
-  const { id, name, email } = result
+  const { id, name, email, admin } = result
   
-  res.status(200).json({ id, name, email })
+  res.status(200).json({ id, name, email, admin })
 }
 
 const signin = async (req, res) => {
@@ -43,7 +43,8 @@ const signin = async (req, res) => {
   const jwtPayload = {
     id: author.id,
     name: author.name,
-    email: author.email
+    email: author.email,
+    admin: author.admin
   }
   const token = await helpers.generateJWToken(jwtPayload)
   
