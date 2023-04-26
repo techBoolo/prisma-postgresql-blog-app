@@ -1,4 +1,5 @@
 import Post from '../models/post.js'
+import authorize from '../accesscontrol/authorize.js'
 
 const index = async (req, res) => {
   const posts = await Post.getPosts()
@@ -35,8 +36,13 @@ const update = async (req, res) => {
 }
 
 const remove = async (req, res) => {
+  const { userData } = req
+  const { id } = req.params
+  const post = await Post.getPost({ id })
+  authorize(userData, 'delete', post)
+  const response = await Post.deletePost({ id })
 
-  res.status(200).json({ message: 'under const' })
+  res.status(200).json(response)
 }
 
 export default {

@@ -6,7 +6,7 @@ export default (author, action, subject) => {
   if(!ability.can(action, subject)) {
      throw new ErrorResponse({ 
         statusCode: 403,
-        message: 'Authorization failded',
+        message: 'Authorization failed',
       })
   }
 }

@@ -64,9 +64,16 @@ const updatePost = async (id, postData) => {
     }
   })
 }
+
+const deletePost = async (id) => {
+  const db = getDB()
+  return await db.post.delete({ where: id })
+}
+
 export default {
   getPosts,
   createPost,
   getPost,
   updatePost,
+  deletePost,
 }
