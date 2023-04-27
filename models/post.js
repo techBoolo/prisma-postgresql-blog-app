@@ -43,7 +43,22 @@ const getPost = async (id) => {
           email: true
         }
       },
-      comments: true 
+      comments: {
+        select: {
+          id: true,
+          content: true,
+          date: true,
+          updatedAt: true,
+          author: {
+            select: {
+              id: true,
+              email: true,
+              name: true,
+              admin: true
+            }
+          }
+        }
+      }
     }
   })
 }
