@@ -51,22 +51,39 @@ router.route('/')
    *          content:
    *            application/json:
    *              schema:
-   *                
+   *                type: object 
+   *                properties:
+   *                  title:
+   *                    type: string
+   *                    example: title of the post
+   *                  content:
+   *                    type: string
+   *                    example: description or content of the post
+   *                  author_id:
+   *                    type: string
+   *                    example: 
    */
   .post(authenticate, postController.create)
 
   router.route('/:id')
     /**
      * @swagger
-     *  /posts/:id:
+     *  /posts/{id}:
      *    get:
      *      description: get a post
+     *      parameters:
+     *        - in: path
+     *          name: id
+     *          schema:
+     *            type: string
+     *          required: true
+     *          description: uuid of the post to fetch
      *
     */
     .get(postController.show)
     /**
      * @swagger
-     *  /posts/:id:
+     *  /posts/{id}:
      *    patch:
      *      description: update a post
      *
@@ -74,7 +91,7 @@ router.route('/')
     .patch(authenticate, postController.update)
     /**
      * @swagger
-     *  /posts/:id:
+     *  /posts/{id}:
      *    delete:
      *      description: delete a post
      *

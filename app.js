@@ -6,6 +6,7 @@ import ErrorResponse from './utils/errorResponse.js'
 
 import postRoute from './routes/post.js'
 import authorRoute from './routes/author.js'
+import commentRoute from './routes/comment.js'
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 
 app.use('/posts', postRoute)
 app.use('/authors', authorRoute)
+app.use('/comments', commentRoute)
 
 swagger(app)
 app.use((req, res, next) => {

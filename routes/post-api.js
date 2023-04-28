@@ -1,8 +1,8 @@
   /**
   *@swagger
   * /posts:
-  *   get:
-  *     description; return list of posts
+  *   post:
+  *     description: return list of posts
   *     responses:
   *       '200':
   *         description: array of posts
