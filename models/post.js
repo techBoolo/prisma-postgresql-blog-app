@@ -40,7 +40,8 @@ const getPost = async (id) => {
         select: {
           id: true,
           name: true,
-          email: true
+          email: true,
+          admin: true,
         }
       },
       comments: {

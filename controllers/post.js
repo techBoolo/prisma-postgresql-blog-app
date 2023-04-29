@@ -10,6 +10,7 @@ const create = async (req, res) => {
   const data = req.body
   const userData = req.userData
   
+  authorize(userData, 'create', 'Post')
   const newPostData = {
     title: data.title,
     content: data.content,
@@ -24,6 +25,7 @@ const show = async (req, res) => {
   const { id } = req.params
   const post = await Post.getPost({ id })
 
+  // authorize({}, 'read', 'Post' )
   res.status(200).json(post)
 }
 
