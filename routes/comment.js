@@ -6,5 +6,7 @@ const router = express.Router()
 
 router.route('/')
   .post(authenticate, commentController.create)
+router.route('/:id')
+  .patch(authenticate, commentController.update)
 
 export default router

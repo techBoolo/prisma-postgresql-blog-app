@@ -1,5 +1,6 @@
 import authorize from '../accesscontrol/authorize.js'
 import Comment from '../models/comment.js'
+import { subject } from '@casl/ability'
 
 const create = async (req, res) => {
   const commentData = req.body
@@ -10,6 +11,19 @@ const create = async (req, res) => {
   res.status(201).json(comment)
 }
 
+const update = async (req, res) => {
+  const { id } = req.params
+  const updateData = req.body
+  const { userData } = req
+
+  const comment = await Comment.getComment({ id })
+  authorize(userData, 'update', subject('Comment', { ...comment }))
+  const response = await Comment.updateComment({ id, ...updateData })
+
+  res.status(200).json(response)
+}
+
 export default {
   create,
+  update,
 }

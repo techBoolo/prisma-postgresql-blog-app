@@ -50,6 +50,8 @@ const getPost = async (id) => {
           content: true,
           date: true,
           updatedAt: true,
+          post_id: true,
+          author_id: true,
           author: {
             select: {
               id: true,
