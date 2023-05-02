@@ -23,7 +23,17 @@ const update = async (req, res) => {
   res.status(200).json(response)
 }
 
+const remove = async (req, res) => {
+  const { id } = req.params
+  const { userData } = req
+  const comment = await Comment.getComment({ id })
+  authorize(userData, 'delete', subject('Comment', { ...comment }))
+  const response = await Comment.deleteComment({ id })
+
+  res.status(200).json(response)
+}
 export default {
   create,
   update,
+  remove,
 }

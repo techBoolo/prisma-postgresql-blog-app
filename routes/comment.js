@@ -8,5 +8,6 @@ router.route('/')
   .post(authenticate, commentController.create)
 router.route('/:id')
   .patch(authenticate, commentController.update)
+  .delete(authenticate, commentController.remove)
 
 export default router

@@ -42,8 +42,16 @@ const updateComment = async ({ id, content }) => {
   })
 }
 
+const deleteComment = async ({ id }) => {
+  const db = getDB()
+  return await db.comment.delete({
+    where: { id }
+  })
+}
+
 export default {
   createComment,
   getComment,
   updateComment,
+  deleteComment,
 }
