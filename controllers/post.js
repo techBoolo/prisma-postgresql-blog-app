@@ -30,17 +30,21 @@ const show = async (req, res) => {
 }
 
 const update = async (req, res) => {
+  const { userData } = req
   const data = req.body
   const { id, ...rest } = data
-  const post = await Post.updatePost({ id }, rest)
-  
-  res.status(200).json(post)
+  const post = await Post.getPost({ id })
+  authorize(userData, 'update', post)
+  const result = await Post.updatePost({ id }, rest)
+
+  res.status(200).json(result)
 }
 
 const remove = async (req, res) => {
   const { userData } = req
   const { id } = req.params
   const post = await Post.getPost({ id })
+
   authorize(userData, 'delete', post)
   const response = await Post.deletePost({ id })
 

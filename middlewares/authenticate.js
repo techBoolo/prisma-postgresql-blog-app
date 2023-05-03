@@ -9,7 +9,8 @@ export default async (req, res, next) => {
     req.userData = {
       id: result.id,
       name: result.name,
-      email: result.email
+      email: result.email,
+      admin: result.admin
     }
     next()
   } catch (err) {
